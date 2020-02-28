@@ -3,7 +3,7 @@ version: "3"
 services:
   webserver:
     build: 
-      context: ./bin/webserver
+      context: ./bin/apache
     container_name: 'djily-webserver'
     restart: 'always'
     ports:
