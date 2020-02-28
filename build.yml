@@ -5,7 +5,9 @@
   become: yes
   tasks:
   - name: Build containers and expose services
-    shell: |
-      cd compose
-      docker-compose up -d
-   
+    shell: bash run.sh
+
+  - name: Display running containers
+    shell: sudo docker ps
+    register: output
+  - debug: msg={{ output.stdout_lines }} 
