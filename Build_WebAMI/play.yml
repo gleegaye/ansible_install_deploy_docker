@@ -10,7 +10,7 @@
       apt: name=git update_cache=yes state=latest
       
     - name: Install prerequisites for docker-ce
-	    apt:
+      apt:
         name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2' ,'software-properties-common']
         update_cache: yes
 
