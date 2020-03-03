@@ -1,46 +1,46 @@
 ---
 - hosts: all
   tasks:
-    - name: Install Python3
-      become: yes
-      apt: name=python3 update_cache=yes state=latest
+  - name: Install Python3
+    become: yes
+    apt: name=python3 update_cache=yes state=latest
 
-    - name: Install Git package
-      become: yes
-      apt: name=git update_cache=yes state=latest
-      
-    - name: Install prerequisites for docker-ce
-      apt:
-        name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2' ,'software-properties-common']
-        update_cache: yes
+  - name: Install Git package
+    become: yes
+    apt: name=git update_cache=yes state=latest
 
-    - name: Add Docker GPG key
-      apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+  - name: Install prerequisites for docker-ce
+    apt:
+      name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2' ,'software-properties-common']
+      update_cache: yes
 
-    - name: Add Docker APT repository
-      apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+  - name: Add Docker GPG key
+    apt_key: url=https://download.docker.com/linux/ubuntu/gpg
 
-    - name: Install Docker
-      apt:
-        name: docker-ce
-        update_cache: yes
+  - name: Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
 
-    - name: Ensure Docker is started and enabled at boot.
-      service: name="docker" state="started" enabled="yes"
-      notify:  started docker
-      
-    - name: Install prerequisites for docker-compose
-      apt:
-        name: ['python3-pip', 'python3-setuptools', 'virtualenv']
-        update_cache: yes
-        state: present
+  - name: Install Docker
+    apt:
+      name: docker-ce
+      update_cache: yes
 
-    - name: Install docker-compose
-      get_url:
-        url: https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64
-        dest: "/usr/local/bin/docker-compose"
-        mode: 0755
+  - name: Ensure Docker is started and enabled at boot.
+    service: name="docker" state="started" enabled="yes"
+    notify:  started docker
+
+  - name: Install prerequisites for docker-compose
+    apt:
+      name: ['python3-pip', 'python3-setuptools', 'virtualenv']
+      update_cache: yes
+      state: present
+
+  - name: Install docker-compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64
+      dest: "/usr/local/bin/docker-compose"
+      mode: 0755
 
     
 
